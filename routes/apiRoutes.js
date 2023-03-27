@@ -46,5 +46,35 @@ router.get('/notes', (req, res) =>{
 //  //   res.sendFile(path.join(__dirname, './public/notes.html'))
 });
 
+router.post('/notes' , (req, res) => {
+    console.info(`${req.method} request received to add a note`);
 
+    const {title, text, id} = req.body;
+    if (title && text) {
+        // to be saved
+        const newNote = {
+            title,
+            text,
+           // id: v4(),
+        };
+
+        db.push(newNote);
+
+        fs.writeFile('./db/db.json' , JSON.stringify(db),
+        (err) => {
+            if (err) {
+                console.log(err);
+            }
+        });
+
+        const response = {
+            status: 'success',
+            body: newNote,
+        };
+
+        res.status(201).json(response);
+    } else {
+        res.status(500).json('Error in posting note');
+    }
+});
 module.exports = router;

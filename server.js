@@ -15,25 +15,26 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use('/api', apiRoutes);
 app.use('/', htmlRoutes);
+
 //////////////////////////////////////////////////////
 
 
-// app.get('/', (req,res) => {
-//     res.sendFile(path.join(__dirname, "public/index.html"))
-// });
+app.get('/', (req,res) => {
+    res.sendFile(path.join(__dirname, "public/index.html"))
+});
 
-// //get request for html file
-// app.get('/notes', (req , res) =>{
-//     res.sendFile(path.join(__dirname, 'public/notes.html'))
-// });
+//get request for html file
+app.get('/notes', (req , res) =>{
+    res.sendFile(path.join(__dirname, 'public/notes.html'))
+});
 
-// //get notes from db
-// app.get('/api/notes', (req, res) => {
-//     console.info(`get /api/notes`);
-//     res.status(200).json(db);
-// });
+//get notes from db
+app.get('/api/notes', (req, res) => {
+    console.info(`get /api/notes`);
+    res.status(200).json(db);
+});
 
-// //post notes to db
+//post notes to db
 // app.post('/api/notes' , (req, res) => {
 //     console.info(`${req.method} request received to add a note`);
 
